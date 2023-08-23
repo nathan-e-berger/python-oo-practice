@@ -10,6 +10,7 @@ class WordFinder:
         self.source = source
         self.list = []
         self.populate_list_from_source()
+        print(f"{len(self.list)} words read")
 
     def __repr__(self):
         return f"<WordFinder with {len(self.list)} number of words>"
@@ -24,8 +25,34 @@ class WordFinder:
 
         file.close()
 
-        print(f"{len(self.list)} words read")
 
     def random(self):
         """Return a random word from the instance's list"""
         return choice(self.list)
+
+
+class SpecialWordFinder(WordFinder):
+    """Enhance WordFinder to account for blank lines and comments"""
+
+    def __repr__(self):
+        return super().__repr__() + f"excluding blank lines and comments"
+
+    def populate_list_from_source(self):
+        """Ignore blank lines"""
+        # for item in self.list:
+        #     if item.startswith('#'):
+        #         self.list.remove(item)
+        #     elif not item:
+        #         self.list.remove(item)
+        [word for word in self.list
+        if word != "" and not word.startswith("#")]
+
+
+# current code reflects assumption that populate list from source (child) will
+# run after the parents
+
+
+
+
+
+
